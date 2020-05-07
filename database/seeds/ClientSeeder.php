@@ -1,5 +1,6 @@
 <?php
 
+use App\Client;
 use Illuminate\Database\Seeder;
 
 class ClientSeeder extends Seeder
@@ -9,8 +10,8 @@ class ClientSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
+        factory(Client::class, 10)->create();
     }
 }

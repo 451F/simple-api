@@ -12,14 +12,14 @@ class CreateProjectsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name');
             $table->text('description');
-            $table->enum('statuses', Project::$statuses);
+            $table->enum('status', Project::$statuses);
         });
     }
 
@@ -28,7 +28,7 @@ class CreateProjectsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('projects');
     }

@@ -12,6 +12,10 @@ class Project extends Model
     public const STATUS_FINISHED = 'finished';
     public const STATUS_CANCEL = 'cancel';
 
+
+    /**
+     * @var string[] Available statuses
+     */
     public static $statuses = [
         self::STATUS_PLANNED,
         self::STATUS_RUNNING,

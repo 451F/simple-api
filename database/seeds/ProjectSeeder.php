@@ -1,5 +1,6 @@
 <?php
 
+use App\Project;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
@@ -9,8 +10,8 @@ class ProjectSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        //
+        factory(Project::class, 10)->create();
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Http\Resources\Project as ProjectResource;
+use App\Http\Resources\ProjectCollection;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,11 +14,11 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return ProjectCollection
      */
-    public function index(): JsonResponse
+    public function index(): ProjectCollection
     {
-        return response()->json(Project::all()->toArray());
+        return new ProjectCollection(Project::all());
     }
 
     /**
@@ -30,18 +32,20 @@ class ProjectController extends Controller
         $project = new Project($request->all());
         $project->save();
 
-        return response()->json($project->toArray(), 201);
+        return (new ProjectResource($project))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  Project  $project
-     * @return JsonResponse
+     * @return ProjectResource
      */
-    public function show(Project $project): JsonResponse
+    public function show(Project $project): ProjectResource
     {
-        return response()->json($project->toArray());
+        return new ProjectResource($project);
     }
 
     /**
@@ -55,7 +59,9 @@ class ProjectController extends Controller
     {
         $project->update($request->all());
 
-        return response()->json($project->toArray());
+        return (new ProjectResource($project))
+            ->response()
+            ->setStatusCode(202);
     }
 
     /**

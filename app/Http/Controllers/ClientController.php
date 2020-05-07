@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Client as Client;
+use App\Http\Resources\Client as ClientResource;
+use App\Http\Resources\ClientCollection;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,11 +14,11 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return ClientCollection
      */
-    public function index(): JsonResponse
+    public function index(): ClientCollection
     {
-        return response()->json(Client::all()->toArray());
+        return new ClientCollection(Client::all());
     }
 
     /**
@@ -30,18 +32,20 @@ class ClientController extends Controller
         $client = new Client($request->all());
         $client->save();
 
-        return response()->json($client->toArray(), 201);
+        return (new ClientResource($client))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  Client  $client
-     * @return JsonResponse
+     * @return ClientResource
      */
-    public function show(Client $client): JsonResponse
+    public function show(Client $client): ClientResource
     {
-        return response()->json($client->toArray());
+        return new ClientResource($client);
     }
 
     /**
@@ -55,7 +59,9 @@ class ClientController extends Controller
     {
         $client->update($request->all());
 
-        return response()->json($client->toArray(), 201);
+        return (new ClientResource($client))
+            ->response()
+            ->setStatusCode(202);
     }
 
     /**

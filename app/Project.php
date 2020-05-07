@@ -12,7 +12,6 @@ class Project extends Model
     public const STATUS_FINISHED = 'finished';
     public const STATUS_CANCEL = 'cancel';
 
-
     /**
      * @var string[] Available statuses
      */
@@ -22,5 +21,11 @@ class Project extends Model
         self::STATUS_ON_HOLD,
         self::STATUS_FINISHED,
         self::STATUS_CANCEL,
+    ];
+
+    protected $fillable = [
+        'name',
+        'description',
+        'status'
     ];
 }
